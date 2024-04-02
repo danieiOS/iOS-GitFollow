@@ -19,7 +19,3 @@
 - UISearchController
 - Delegate Pattern 
 ```
-## 트러블 슈팅
-
-
-## 아쉬운점 & 느낀점
