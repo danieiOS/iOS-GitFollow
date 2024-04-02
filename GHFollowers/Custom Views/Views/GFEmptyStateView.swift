@@ -34,6 +34,7 @@ class GFEmptyStateView: UIView {
 	private func configureMessageLabel() {
 		messageLabel.numberOfLines = 3
 		messageLabel.textColor = .secondaryLabel
+		messageLabel.translatesAutoresizingMaskIntoConstraints = false
 		
 		/// 디바이스 대응
 		let labelCenterYConstraint: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? -80 : -115
