@@ -5,7 +5,7 @@
 //  Created by 송성욱 on 4/1/24.
 //
 
-import Foundation
+import UIKit
 
 enum SFSymbols {
 	static let location = "mappin.and.ellipse"
@@ -14,3 +14,5 @@ enum SFSymbols {
 	static let followers = "heart"
 	static let following = "person.2"
 }
+
+

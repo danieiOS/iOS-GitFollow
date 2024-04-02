@@ -20,39 +20,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //		let favoritesNC = UINavigationController(rootViewController: FavoritesListViewController())
 		
 		/// TabBarController 인스턴스를 만들어서 두개의 ViewController들을 연결 시켜주면 된다.
-		
-		
 		window = UIWindow(frame: windowScene.coordinateSpace.bounds)
 		window?.windowScene = windowScene
-		window?.rootViewController = createTabbar()
+		window?.rootViewController = GFTabBarController()
 		window?.makeKeyAndVisible()
 		
 		configureNavigationBar()
-	}
-	
-	// 탭에 NavigationController 연결
-	func createSearchNC() -> UINavigationController {
-		let searchVC = SearchViewController()
-		searchVC.title = "Search"
-		searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
-		return UINavigationController(rootViewController: searchVC)
-	}
-	
-	//탭에 NavigationController 연결
-	func createFavoritesNC() -> UINavigationController {
-		let favoritesListVC = FavoritesListViewController()
-		favoritesListVC.title = "Favorites"
-		favoritesListVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
-		return UINavigationController(rootViewController: favoritesListVC)
-	}
-	
-	//탭바를 만들어준다.
-	func createTabbar() -> UITabBarController {
-		let tabbar = UITabBarController()
-		/// 탭바 부분 디자인을 변경시키기 위한 메서드
-		UITabBar.appearance().tintColor = .systemGreen
-		tabbar.viewControllers = [createSearchNC(), createFavoritesNC()]
-		return tabbar
 	}
 	
 	/// SceneDelegate에 선언하면
