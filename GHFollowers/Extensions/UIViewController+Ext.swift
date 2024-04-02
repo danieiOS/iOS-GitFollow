@@ -12,6 +12,7 @@ import SafariServices
 fileprivate var containerView: UIView!
 
 extension UIViewController {
+	/// 커스텀 Alert기능 구현
 	func presentGFAlertOnMainThread(title: String, message: String, buttonTitle: String) {
 		DispatchQueue.main.async {
 			let alertVC = GFAlertViewController(title: title, message: message, buttonTitle: buttonTitle)

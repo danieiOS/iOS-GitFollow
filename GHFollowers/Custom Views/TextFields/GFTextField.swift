@@ -35,6 +35,8 @@ class GFTextField: UITextField {
 		backgroundColor = .tertiarySystemBackground
 		autocorrectionType = .no
 		returnKeyType = .go
+		/// 텍스트 삭제 기능
+		clearButtonMode = .whileEditing
 		placeholder = "Enter a username"
 	}
 }

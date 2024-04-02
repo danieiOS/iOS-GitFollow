@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+/// String type 날짜를 Date타입으로 변환한다 => 날짜 양식을 변경하기 위해서는 Date 타입에서 변경 후 다시 String으로 변환시켜줘야 한다.
 extension String {
 	func convertToDate() -> Date? {
 		

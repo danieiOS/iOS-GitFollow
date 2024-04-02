@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+/// Date타입을 String 타입으로 변환
 extension Date {
 	func convertToMonthYearFormat() -> String {
 		let dateFormatter = DateFormatter()
