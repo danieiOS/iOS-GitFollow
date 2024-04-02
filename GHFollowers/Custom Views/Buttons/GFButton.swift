@@ -19,11 +19,10 @@ class GFButton: UIButton {
 	}
 	
 	/// 버튼의 커스터마이징을 위한 초기화
-	init(backgroundColor: UIColor, title: String) {
-		super.init(frame: .zero)
+	convenience init(backgroundColor: UIColor, title: String) {
+		self.init(frame: .zero)
 		self.backgroundColor = backgroundColor
 		self.setTitle(title, for: .normal)
-		configure()
 	}
 	
 	private func configure() {

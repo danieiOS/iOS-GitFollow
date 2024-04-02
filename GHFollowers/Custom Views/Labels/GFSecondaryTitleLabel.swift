@@ -21,8 +21,8 @@ class GFSecondaryTitleLabel: UILabel {
 	}
 	
 	//3. size를 flexible하게 설정하기 위한 초기화 코드
-	init(fontSize: CGFloat) {
-		super.init(frame: .zero)
+	convenience init(fontSize: CGFloat) {
+		self.init(frame: .zero)
 		font = UIFont.systemFont(ofSize: fontSize, weight: .medium)
 		configure()
 	}
