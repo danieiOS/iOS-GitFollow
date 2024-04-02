@@ -13,7 +13,7 @@ protocol UserInfoVCDelegate: AnyObject {
 	func didTabGetFollowers(for user: User)
 }
 
-class UserInfoViewController: UIViewController {
+class UserInfoViewController: GFDataLoadingVC {
 	let headerView = UIView()
 	let itemViewOne = UIView()
 	let itemViewTwo = UIView()
@@ -62,7 +62,7 @@ class UserInfoViewController: UIViewController {
 		self.add(childVC: repoItemVC, to: self.itemViewOne)
 		self.add(childVC: followerItemVC, to: self.itemViewTwo)
 		self.add(childVC: GFUserInfoHeaderVC(user: user), to: self.headerView)
-		self.dateLabel.text = "Github since \(user.createdAt.convertToDisplayFormat())"
+		self.dateLabel.text = "Github since \(user.createdAt.convertToMonthYearFormat())"
 	}
 	
 	func layoutUI() {

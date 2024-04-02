@@ -42,6 +42,7 @@
 		960B0F592BBAFDAE007F3D6F /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B0F582BBAFDAE007F3D6F /* FavoriteCell.swift */; };
 		960B0F5C2BBB8B00007F3D6F /* GFTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B0F5B2BBB8B00007F3D6F /* GFTabBarController.swift */; };
 		960B0F5E2BBBC38F007F3D6F /* GFAlertContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B0F5D2BBBC38F007F3D6F /* GFAlertContainerView.swift */; };
+		960B0F602BBBD124007F3D6F /* GFDataLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B0F5F2BBBD124007F3D6F /* GFDataLoadingVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +83,7 @@
 		960B0F582BBAFDAE007F3D6F /* FavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
 		960B0F5B2BBB8B00007F3D6F /* GFTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFTabBarController.swift; sourceTree = "<group>"; };
 		960B0F5D2BBBC38F007F3D6F /* GFAlertContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFAlertContainerView.swift; sourceTree = "<group>"; };
+		960B0F5F2BBBD124007F3D6F /* GFDataLoadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFDataLoadingVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +252,7 @@
 				960B0F512BBABBB8007F3D6F /* ItemInfoVC */,
 				960B0F162BB5C2B3007F3D6F /* GFAlertViewController.swift */,
 				960B0F3F2BBA7FBB007F3D6F /* GFUserInfoHeaderVC.swift */,
+				960B0F5F2BBBD124007F3D6F /* GFDataLoadingVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				960B0F552BBABF53007F3D6F /* String+Ext.swift in Sources */,
 				960B0F092BB59531007F3D6F /* SearchViewController.swift in Sources */,
 				960B0F192BB5C843007F3D6F /* UIViewController+Ext.swift in Sources */,
+				960B0F602BBBD124007F3D6F /* GFDataLoadingVC.swift in Sources */,
 				960B0F312BB9187A007F3D6F /* UIHelper.swift in Sources */,
 				960B0F4C2BBAB726007F3D6F /* GFItemInfoVC.swift in Sources */,
 				960B0F462BBA8E62007F3D6F /* Constants.swift in Sources */,

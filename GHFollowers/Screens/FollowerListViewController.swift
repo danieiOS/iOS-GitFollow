@@ -4,7 +4,7 @@ protocol FollowerListVCDelegate: AnyObject {
 	func didRequestFollowers(for username: String)
 }
 
-class FollowerListViewController: UIViewController {
+class FollowerListViewController: GFDataLoadingVC {
 	
 	enum Section { case main }
 	
@@ -75,11 +75,11 @@ class FollowerListViewController: UIViewController {
 	/// weak self 순환참조에서 메모리 누수를 막기 위해서 사용
 	func getFollowers(username: String, page: Int) {
 		//로딩뷰 보여주기
-		showLoadingView()
+		()
 		NetworkManager.shared.getFollowers(for: username, page: page) { [weak self] result in
 			guard let self = self else { return }
 			//로딩뷰 취소
-			self.dismissLoadingView()
+			
 			
 			switch result {
 			case .success(let followers):
@@ -122,7 +122,7 @@ class FollowerListViewController: UIViewController {
 		//로컬에 내가 좋아하는 사람을 추가하기 위해서 UserDefaults를 사용
 		NetworkManager.shared.getUserInfo(for: username) { [weak self] result in
 			guard let self = self else { return }
-			self.dismissLoadingView()
+			dismissLoadingView()
 			
 			switch result {
 			case .success(let user):
