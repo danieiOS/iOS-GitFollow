@@ -41,6 +41,7 @@
 		960B0F572BBAF2BD007F3D6F /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B0F562BBAF2BD007F3D6F /* PersistenceManager.swift */; };
 		960B0F592BBAFDAE007F3D6F /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B0F582BBAFDAE007F3D6F /* FavoriteCell.swift */; };
 		960B0F5C2BBB8B00007F3D6F /* GFTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B0F5B2BBB8B00007F3D6F /* GFTabBarController.swift */; };
+		960B0F5E2BBBC38F007F3D6F /* GFAlertContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B0F5D2BBBC38F007F3D6F /* GFAlertContainerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 		960B0F562BBAF2BD007F3D6F /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		960B0F582BBAFDAE007F3D6F /* FavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
 		960B0F5B2BBB8B00007F3D6F /* GFTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFTabBarController.swift; sourceTree = "<group>"; };
+		960B0F5D2BBBC38F007F3D6F /* GFAlertContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFAlertContainerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +215,7 @@
 			children = (
 				960B0F392BBA3E6F007F3D6F /* GFEmptyStateView.swift */,
 				960B0F472BBAB2C9007F3D6F /* GFItemInfoView.swift */,
+				960B0F5D2BBBC38F007F3D6F /* GFAlertContainerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				960B0F402BBA7FBB007F3D6F /* GFUserInfoHeaderVC.swift in Sources */,
 				960B0F3E2BBA7D74007F3D6F /* GFError.swift in Sources */,
 				960B0F202BB5CF9E007F3D6F /* Follower.swift in Sources */,
+				960B0F5E2BBBC38F007F3D6F /* GFAlertContainerView.swift in Sources */,
 				960B0F132BB5C0A3007F3D6F /* GFTitleLabel.swift in Sources */,
 				960B0F532BBABF11007F3D6F /* Date+Ext.swift in Sources */,
 				960B0F572BBAF2BD007F3D6F /* PersistenceManager.swift in Sources */,
