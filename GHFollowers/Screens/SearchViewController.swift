@@ -19,6 +19,7 @@ class SearchViewController: GFDataLoadingVC {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .systemBackground
+		view.addSubviews(logoImageView, usernameTextField, callToActionButton)
 		configureLogoImageView()
 		configureTextField()
 		configureCallToActionButton()
@@ -57,7 +58,6 @@ class SearchViewController: GFDataLoadingVC {
 	
 	/// 함수로 따로 만들어서 가독성있고 수정이 편리하게 관리한다.
 	func configureLogoImageView() {
-		view.addSubview(logoImageView)
 		logoImageView.translatesAutoresizingMaskIntoConstraints = false
 		logoImageView.image = Images.ghLogo //Stringly type
 		
@@ -76,7 +76,6 @@ class SearchViewController: GFDataLoadingVC {
 	}
 	
 	func configureTextField() {
-		view.addSubview(usernameTextField)
 		usernameTextField.delegate = self
 		
 		NSLayoutConstraint.activate([
@@ -88,7 +87,6 @@ class SearchViewController: GFDataLoadingVC {
 	}
 	
 	func configureCallToActionButton() {
-		view.addSubview(callToActionButton)
 		/// 버튼에 액션을 추가해주는 메소드 addTarget(_:action:for:)
 		callToActionButton.addTarget(self, action: #selector(pushFollowerListVC), for: .touchUpInside)
 		

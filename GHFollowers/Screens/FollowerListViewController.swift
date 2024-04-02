@@ -1,8 +1,6 @@
 import UIKit
 
-protocol FollowerListVCDelegate: AnyObject {
-	func didRequestFollowers(for username: String)
-}
+
 
 class FollowerListViewController: GFDataLoadingVC {
 	
@@ -14,6 +12,7 @@ class FollowerListViewController: GFDataLoadingVC {
 	var page = 1
 	var hasMoreFollowers = true
 	var isSearching = false
+	var isLoadingMoreFollowers = false
 	
 	var collectionView: UICollectionView!
 	var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
@@ -67,7 +66,6 @@ class FollowerListViewController: GFDataLoadingVC {
 	func configureSearchController() {
 		let searchController = UISearchController()
 		searchController.searchResultsUpdater = self
-		searchController.searchBar.delegate = self
 		searchController.searchBar.placeholder = "Search for a username"
 		navigationItem.searchController = searchController
 	}
@@ -119,6 +117,7 @@ class FollowerListViewController: GFDataLoadingVC {
 	
 	@objc func addButtonTapped() {
 		showLoadingView()
+		isLoadingMoreFollowers = true
 		//로컬에 내가 좋아하는 사람을 추가하기 위해서 UserDefaults를 사용
 		NetworkManager.shared.getUserInfo(for: username) { [weak self] result in
 			guard let self = self else { return }
@@ -142,6 +141,8 @@ class FollowerListViewController: GFDataLoadingVC {
 			case .failure(let error):
 				self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
 			}
+			
+			self.isLoadingMoreFollowers = false
 		}
 	}
 }
@@ -153,9 +154,10 @@ extension FollowerListViewController: UICollectionViewDelegate {
 		let contentHeight = scrollView.contentSize.height
 		let height = scrollView.frame.size.height
 		
-		// 이 조건에서 데이터를 불러오는 원리
+		// 이 조건에서 데이터를 불러오는 원리 (pagination)
 		if offsetY > contentHeight - height {
-			guard hasMoreFollowers else { return }
+			///isLoadingMoredFollowers 조건 추가
+			guard hasMoreFollowers, !isLoadingMoreFollowers else { return }
 			page += 1
 			getFollowers(username: username, page: page)
 		}
@@ -174,9 +176,15 @@ extension FollowerListViewController: UICollectionViewDelegate {
 }
 
 //UISearchResultsUpdating => search 데이터를 결과값으로 보내주기위한 프로토콜
-extension FollowerListViewController: UISearchResultsUpdating, UISearchBarDelegate {
+extension FollowerListViewController: UISearchResultsUpdating {
+	/// 팔로우를 검색하고 텍스트를 다 지운 후 한글자를 적으면 검색이 안되는 버그를 해결
 	func updateSearchResults(for searchController: UISearchController) {
-		guard let filter = searchController.searchBar.text, !filter.isEmpty else { return }
+		guard let filter = searchController.searchBar.text, !filter.isEmpty else { 
+			filteredFollowers.removeAll()
+			updateData(on: followers)
+			isSearching = false
+			return
+		}
 		isSearching = true
 		///followers 배열에서 로그인 이름에 주어진 filter 문자열이 포함된 요소들만 남기고 나머지는 제거합니다. 결과적으로 이 코드는 검색 필터가 적용된 팔로워 목록을 반환합니다.
 		filteredFollowers = followers.filter { $0.login.lowercased().contains(filter.lowercased()) }
@@ -192,14 +200,16 @@ extension FollowerListViewController: UISearchResultsUpdating, UISearchBarDelega
 }
 
 
-extension FollowerListViewController: FollowerListVCDelegate {
+extension FollowerListViewController: UserInfoVCDelegate {
 	func didRequestFollowers(for username: String) {
 		self.username = username
 		title = username
 		page = 1
 		followers.removeAll()
 		filteredFollowers.removeAll()
-		collectionView.setContentOffset(.zero, animated: true)
+//		collectionView.setContentOffset(.zero, animated: true)
+		///다른 팔로우로 넘어갈 때 이미지가 잘리는 현상 해결
+		collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
 		getFollowers(username: username, page: page)
 	}
 }

@@ -6,11 +6,9 @@
 //
 
 import UIKit
-import SafariServices
 
 protocol UserInfoVCDelegate: AnyObject {
-	func didTabGitHubProfile(for user: User)
-	func didTabGetFollowers(for user: User)
+	func didRequestFollowers(for username: String)
 }
 
 class UserInfoViewController: GFDataLoadingVC {
@@ -21,7 +19,8 @@ class UserInfoViewController: GFDataLoadingVC {
 	var itemViews: [UIView] = []
 	
 	var username: String!
-	weak var delegate: FollowerListVCDelegate!
+	
+	weak var delegate: UserInfoVCDelegate!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -52,15 +51,16 @@ class UserInfoViewController: GFDataLoadingVC {
 	}
 	
 	func configureUIElements(with user: User) {
+		//let repoItemVC = GFRepoItemVC(user: user)
+		//repoItemVC.delegate = self
 		
-		let repoItemVC = GFRepoItemVC(user: user)
-		repoItemVC.delegate = self
+		//let followerItemVC = GFFollowerItemVC(user: user)
+		//followerItemVC.delegate = self
 		
-		let followerItemVC = GFFollowerItemVC(user: user)
-		followerItemVC.delegate = self
-		
-		self.add(childVC: repoItemVC, to: self.itemViewOne)
-		self.add(childVC: followerItemVC, to: self.itemViewTwo)
+		// 추가 할 뷰에 프로토콜과 delegate를 만들어 놓으면 위에 코드 처럼 인스턴스를 생성하지 않아도 됌
+		// 따로 인스턴스를 생성하지 않고 바로 추가할 수 있도록 각 item vc 에 프로토콜을 생성하고 delegate를 초기화해 연결 할 수 있도록 구현
+		self.add(childVC: GFRepoItemVC(user: user, delegate: self), to: self.itemViewOne)
+		self.add(childVC: GFFollowerItemVC(user: user, delegate: self), to: self.itemViewTwo)
 		self.add(childVC: GFUserInfoHeaderVC(user: user), to: self.headerView)
 		self.dateLabel.text = "Github since \(user.createdAt.convertToMonthYearFormat())"
 	}
@@ -92,7 +92,7 @@ class UserInfoViewController: GFDataLoadingVC {
 			itemViewTwo.heightAnchor.constraint(equalToConstant: itemHeight),
 			
 			dateLabel.topAnchor.constraint(equalTo: itemViewTwo.bottomAnchor, constant: padding),
-			dateLabel.heightAnchor.constraint(equalToConstant: 18)
+			dateLabel.heightAnchor.constraint(equalToConstant: 50)
 		])
 	}
 	
@@ -108,17 +108,21 @@ class UserInfoViewController: GFDataLoadingVC {
 	}
 }
 
-extension UserInfoViewController: UserInfoVCDelegate {
+extension UserInfoViewController: GFRepoItemVCDelegate {
+	
 	func didTabGitHubProfile(for user: User) {
 		guard let url = URL(string: user.htmlUrl) else {
 			presentGFAlertOnMainThread(title: "Invalid", message: "The url attached to this user is invalid", buttonTitle: "OK")
-			return 
+			return
 		}
 		
 		presentSafariVC(with: url)
 	}
+}
+
+extension UserInfoViewController: GFFollowerItemVCDelegae {
 	
-	func didTabGetFollowers(for user: User) {
+	func didTapGetFollowers(for user: User) {
 		guard user.followers != 0 else {
 			presentGFAlertOnMainThread(title: "No followers", message: "This user has no followers. What a shame", buttonTitle: "So sad")
 			return
@@ -127,6 +131,8 @@ extension UserInfoViewController: UserInfoVCDelegate {
 		dismissVC()
 	}
 }
+
+
 
 //Lifecycle Method
 //Self contained

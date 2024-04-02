@@ -1,9 +1,3 @@
-//
-//  PersistenceManager.swift
-//  GHFollowers
-//
-//  Created by 송성욱 on 4/1/24.
-//
 
 import Foundation
 

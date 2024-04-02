@@ -43,6 +43,7 @@
 		960B0F5C2BBB8B00007F3D6F /* GFTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B0F5B2BBB8B00007F3D6F /* GFTabBarController.swift */; };
 		960B0F5E2BBBC38F007F3D6F /* GFAlertContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B0F5D2BBBC38F007F3D6F /* GFAlertContainerView.swift */; };
 		960B0F602BBBD124007F3D6F /* GFDataLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B0F5F2BBBD124007F3D6F /* GFDataLoadingVC.swift */; };
+		960B0F622BBBE361007F3D6F /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B0F612BBBE361007F3D6F /* UIView+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +85,7 @@
 		960B0F5B2BBB8B00007F3D6F /* GFTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFTabBarController.swift; sourceTree = "<group>"; };
 		960B0F5D2BBBC38F007F3D6F /* GFAlertContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFAlertContainerView.swift; sourceTree = "<group>"; };
 		960B0F5F2BBBD124007F3D6F /* GFDataLoadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFDataLoadingVC.swift; sourceTree = "<group>"; };
+		960B0F612BBBE361007F3D6F /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 				960B0F182BB5C843007F3D6F /* UIViewController+Ext.swift */,
 				960B0F522BBABF11007F3D6F /* Date+Ext.swift */,
 				960B0F542BBABF53007F3D6F /* String+Ext.swift */,
+				960B0F612BBBE361007F3D6F /* UIView+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 				960B0EF52BB5905D007F3D6F /* AppDelegate.swift in Sources */,
 				960B0F3C2BBA766C007F3D6F /* UserInfoViewController.swift in Sources */,
 				960B0F0B2BB59561007F3D6F /* FavoritesListViewController.swift in Sources */,
+				960B0F622BBBE361007F3D6F /* UIView+Ext.swift in Sources */,
 				960B0F4E2BBAB998007F3D6F /* GFRepoItemVC.swift in Sources */,
 				960B0EF72BB5905D007F3D6F /* SceneDelegate.swift in Sources */,
 			);
@@ -547,6 +551,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.danielsong.GHFollowers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -575,6 +583,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.danielsong.GHFollowers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

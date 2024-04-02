@@ -27,6 +27,8 @@ class GFBodyLabel: UILabel {
 	private func configure() {
 		textColor = .secondaryLabel
 		font = UIFont.preferredFont(forTextStyle: .body)
+		/// 글자크기 설정에 맞춰서 자동으로 변경 가능하게 만듬
+		adjustsFontForContentSizeCategory = true
 		adjustsFontSizeToFitWidth = true
 		minimumScaleFactor = 0.75
 		lineBreakMode = .byWordWrapping
