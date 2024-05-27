@@ -6,12 +6,16 @@
 //
 
 import UIKit
+import SwiftUI
 
 protocol UserInfoVCDelegate: AnyObject {
 	func didRequestFollowers(for username: String)
 }
 
 class UserInfoViewController: GFDataLoadingVC {
+	let scrollView = UIScrollView()
+	let contentView = UIView()
+	
 	let headerView = UIView()
 	let itemViewOne = UIView()
 	let itemViewTwo = UIView()
@@ -25,6 +29,7 @@ class UserInfoViewController: GFDataLoadingVC {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		configureViewController()
+		configureScrollView()
 		layoutUI()
 		getUserInfo()
 	}
@@ -33,6 +38,19 @@ class UserInfoViewController: GFDataLoadingVC {
 		view.backgroundColor = .systemBackground
 		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
 		navigationItem.rightBarButtonItem = doneButton
+	}
+	
+	/// 스크린 사이즈가 작은 기종을 대응하기 위해서 ScrollView를 사용
+	func configureScrollView() {
+		view.addSubview(scrollView)
+		scrollView.addSubview(contentView)
+		scrollView.pinToEdges(of: view)
+		contentView.pinToEdges(of: scrollView)
+		
+		NSLayoutConstraint.activate([
+			contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+			contentView.heightAnchor.constraint(equalToConstant: 600)
+		])
 	}
 	
 	func getUserInfo() {
@@ -66,23 +84,24 @@ class UserInfoViewController: GFDataLoadingVC {
 	}
 	
 	func layoutUI() {
-		itemViews = [headerView, itemViewOne, itemViewTwo, dateLabel]
-		
 		let padding: CGFloat = 20
 		let itemHeight: CGFloat = 140
-		
+
+		itemViews = [headerView, itemViewOne, itemViewTwo, dateLabel]
+
 		for itemView in itemViews {
+			contentView.addSubview(itemView)
 			view.addSubview(itemView)
 			itemView.translatesAutoresizingMaskIntoConstraints = false
 			
 			NSLayoutConstraint.activate([
-				itemView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-				itemView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+				itemView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+				itemView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
 			])
 		}
 		
 		NSLayoutConstraint.activate([
-			headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+			headerView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
 			headerView.heightAnchor.constraint(equalToConstant: 180),
 			
 			itemViewOne.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: padding),
@@ -109,7 +128,6 @@ class UserInfoViewController: GFDataLoadingVC {
 }
 
 extension UserInfoViewController: GFRepoItemVCDelegate {
-	
 	func didTabGitHubProfile(for user: User) {
 		guard let url = URL(string: user.htmlUrl) else {
 			presentGFAlertOnMainThread(title: "Invalid", message: "The url attached to this user is invalid", buttonTitle: "OK")
@@ -121,7 +139,6 @@ extension UserInfoViewController: GFRepoItemVCDelegate {
 }
 
 extension UserInfoViewController: GFFollowerItemVCDelegae {
-	
 	func didTapGetFollowers(for user: User) {
 		guard user.followers != 0 else {
 			presentGFAlertOnMainThread(title: "No followers", message: "This user has no followers. What a shame", buttonTitle: "So sad")
@@ -132,8 +149,11 @@ extension UserInfoViewController: GFFollowerItemVCDelegae {
 	}
 }
 
-
-
+//struct ViewControllerPreview: PreviewProvider {
+//	static var previews: some View {
+//		VCPreview { UserInfoViewController() }
+//	}
+//}
 //Lifecycle Method
 //Self contained
 //Flexible context

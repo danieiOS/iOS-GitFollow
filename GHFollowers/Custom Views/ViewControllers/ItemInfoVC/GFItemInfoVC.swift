@@ -47,7 +47,9 @@ class GFItemInfoVC: UIViewController {
 	private func configureStackView() {
 		stackView.axis = .horizontal
 		stackView.distribution = .equalSpacing
-		
+		//MARK: - ✅
+		// addArrangeSubview(_:) 는 자동으로 뷰의 레이아웃을 관리하게 됩니다.
+		///새로운 하위 뷰가 추가될 때마다 수동으로 크기와 위치를 수정할 필요가 없습니다. => 코드를 간결하게 유지하고 유연성을 높임
 		stackView.addArrangedSubview(itemInfoViewOne)
 		stackView.addArrangedSubview(itemInfoViewTwo)
 	}

@@ -14,7 +14,7 @@ class NetworkManager {
 		let endpoint = baseURL + "\(username)/followers?per_page=100&page=\(page)"
 		
 		guard let url = URL(string: endpoint) else {
-			completed(.failure(.InvalidUsername))
+			completed(.failure(.invalidUsername))
 			return
 		}
 		
@@ -54,7 +54,7 @@ class NetworkManager {
 		let endpoint = baseURL + "\(username)"
 		
 		guard let url = URL(string: endpoint) else {
-			completed(.failure(.InvalidUsername))
+			completed(.failure(.invalidUsername))
 			return
 		}
 		
@@ -116,11 +116,9 @@ class NetworkManager {
 			}
 			
 			self.cache.setObject(image, forKey: cacheKey)
-			
 			// main thread 를 우선적 점유
 			completed(image)
 		}
-		
 		task.resume()
 	}
 }

@@ -8,7 +8,6 @@
 import UIKit
 
 class GFTitleLabel: UILabel {
-
 	///Designated initializer
 	override init(frame: CGRect) {
 		super.init(frame: frame)

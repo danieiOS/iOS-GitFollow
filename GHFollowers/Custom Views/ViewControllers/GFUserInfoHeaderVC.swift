@@ -8,14 +8,14 @@
 import UIKit
 
 class GFUserInfoHeaderVC: UIViewController {
-	
+	///View Properties
 	let avatarImageView = GFAvatarImageView(frame: .zero)
 	let usernameLabel = GFTitleLabel(textAlignment: .left, fontSize: 34)
 	let nameLabel = GFSecondaryTitleLabel(fontSize: 18)
 	let locationLabel = GFSecondaryTitleLabel(fontSize: 18)
 	let locationImageView = UIImageView()
 	let bioLabel = GFBodyLabel(textAlignment: .left)
-	
+	///Data Properties
 	var user: User!
 	
 	init(user: User) {
@@ -29,13 +29,14 @@ class GFUserInfoHeaderVC: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		addSubViews()
+		view.addSubviews(avatarImageView, usernameLabel, nameLabel, locationLabel, locationImageView, bioLabel)
 		layoutUI()
 		configureUIElements()
 	}
 	
 	func configureUIElements() {
-		downloadAvatarImage()
+		
+		avatarImageView.downloadImage(fromURL: user.avatarUrl)
 		usernameLabel.text = user.login
 		nameLabel.text = user.name ?? ""
 		locationLabel.text = user.location ?? "No Location"
@@ -46,25 +47,8 @@ class GFUserInfoHeaderVC: UIViewController {
 		locationImageView.tintColor = .secondaryLabel
 	}
 	
-	func downloadAvatarImage() {
-		NetworkManager.shared.downloadImage(from: user.avatarUrl) { [weak self] image in
-			guard let self = self else { return }
-			DispatchQueue.main.async { self.avatarImageView.image = image }
-		}
-	}
-	
-	func addSubViews() {
-		view.addSubviews(
-			avatarImageView,
-			usernameLabel,
-			nameLabel,
-			locationLabel,
-			locationImageView,
-			bioLabel
-		)
-	}
-	
 	func layoutUI() {
+		
 		let padding: CGFloat = 20
 		let textImagePadding: CGFloat = 12
 		locationImageView.translatesAutoresizingMaskIntoConstraints = false

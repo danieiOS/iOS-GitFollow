@@ -73,33 +73,41 @@ class FollowerListViewController: GFDataLoadingVC {
 	/// weak self 순환참조에서 메모리 누수를 막기 위해서 사용
 	func getFollowers(username: String, page: Int) {
 		//로딩뷰 보여주기
-		()
+		showLoadingView()
+		isLoadingMoreFollowers = true
+		
 		NetworkManager.shared.getFollowers(for: username, page: page) { [weak self] result in
 			guard let self = self else { return }
 			//로딩뷰 취소
-			
+			self.dismissLoadingView()
 			
 			switch result {
 			case .success(let followers):
-				if followers.count < 100 { self.hasMoreFollowers = false }
-				self.followers.append(contentsOf: followers)
-				
-				if self.followers.isEmpty {
-					let message = "This user doesn't have any followers. Go follow them."
-					DispatchQueue.main.async { self.showEmptyStateView(with: message, in: self.view) }
-					return
-				}
-				
-				self.updateData(on: self.followers)
+				self.updateUI(with: followers)
 				
 			case .failure(let error):
 				self.presentGFAlertOnMainThread(title: "Bad Stuff Happend", message: error.rawValue, buttonTitle: "Ok")
 			}
+			self.isLoadingMoreFollowers = false
 		}
 	}
 	
+	func updateUI(with followers: [Follower]) {
+		if followers.count < 100 { self.hasMoreFollowers = false }
+		self.followers.append(contentsOf: followers)
+		
+		if self.followers.isEmpty {
+			let message = "This user doesn't have any followers. Go follow them."
+			DispatchQueue.main.async { self.showEmptyStateView(with: message, in: self.view) }
+			return
+		}
+		
+		self.updateData(on: self.followers)
+	}
+
 	// 컬렉션뷰에 셀을 재사용하기 위해서는 데이터 UICollectionViewDiffableDataSource 를 이용해서 셀을 만들어 줘야 한다.
 	func configureDataSource() {
+		
 		dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell? in
 			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCell.reuseID, for: indexPath) as! FollowerCell
 			cell.set(follower: follower)
@@ -117,7 +125,7 @@ class FollowerListViewController: GFDataLoadingVC {
 	
 	@objc func addButtonTapped() {
 		showLoadingView()
-		isLoadingMoreFollowers = true
+		
 		//로컬에 내가 좋아하는 사람을 추가하기 위해서 UserDefaults를 사용
 		NetworkManager.shared.getUserInfo(for: username) { [weak self] result in
 			guard let self = self else { return }
@@ -125,30 +133,33 @@ class FollowerListViewController: GFDataLoadingVC {
 			
 			switch result {
 			case .success(let user):
-				let favorite = Follower(login: user.login, avatarUrl: user.avatarUrl)
-				
-				PersistenceManager.update(favorite: favorite, actionType: .add) { [weak self] error in
-					guard let self = self else { return }
-					
-					guard let error = error else {
-						self.presentGFAlertOnMainThread(title: "Success!", message: "You have successfully favorited this user!", buttonTitle: "Hooray!")
-						return
-					}
-					
-					self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
-				}
+				self.addUserToFavorites(user: user)
 				
 			case .failure(let error):
 				self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
 			}
+		}
+	}
+	
+	func addUserToFavorites(user: User) {
+		let favorite = Follower(login: user.login, avatarUrl: user.avatarUrl)
+		
+		PersistenceManager.update(favorite: favorite, actionType: .add) { [weak self] error in
+			guard let self = self else { return }
 			
-			self.isLoadingMoreFollowers = false
+			guard let error = error else {
+				self.presentGFAlertOnMainThread(title: "Success!", message: "You have successfully favorited this user!", buttonTitle: "Hooray!")
+				return
+			}
+			
+			self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
 		}
 	}
 }
 
 // pagination
 extension FollowerListViewController: UICollectionViewDelegate {
+	
 	func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
 		let offsetY = scrollView.contentOffset.y
 		let contentHeight = scrollView.contentSize.height
@@ -191,7 +202,6 @@ extension FollowerListViewController: UISearchResultsUpdating {
 		updateData(on: filteredFollowers)
 	}
 	
-	
 	func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
 		isSearching = false
 		// 원래 팔로워 업데이트
@@ -201,13 +211,14 @@ extension FollowerListViewController: UISearchResultsUpdating {
 
 
 extension FollowerListViewController: UserInfoVCDelegate {
+	
 	func didRequestFollowers(for username: String) {
 		self.username = username
 		title = username
 		page = 1
 		followers.removeAll()
 		filteredFollowers.removeAll()
-//		collectionView.setContentOffset(.zero, animated: true)
+		//collectionView.setContentOffset(.zero, animated: true)
 		///다른 팔로우로 넘어갈 때 이미지가 잘리는 현상 해결
 		collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
 		getFollowers(username: username, page: page)

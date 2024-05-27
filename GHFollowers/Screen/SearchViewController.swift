@@ -43,32 +43,29 @@ class SearchViewController: GFDataLoadingVC {
 	}
 	
 	@objc func pushFollowerListVC() {
+		
 		guard isUsernameEntereed else {
 			presentGFAlertOnMainThread(title: "Empty Username", message: "Please enter a username. We need to know who to look for 😀", buttonTitle: "Ok")
 			print("No username")
 			return
 		}
-		// 텍스트가 필드에 값이 입력되고 키보드가 내려가게끔 만들어줍니다.
-		usernameTextField.resignFirstResponder()
 		
-		///객에에 인자로 받아 올 수 있도록 FollowerListVC에서 매개변수 만들어 줌
+		usernameTextField.resignFirstResponder() // 텍스트가 필드에 값이 입력되고 키보드가 내려가게끔 만들어줍니다.
+		///객체에 인자로 받아 올 수 있도록 FollowerListVC에서 매개변수 만들어 줌
 		let followerListVC = FollowerListViewController(username: usernameTextField.text!)
 		navigationController?.pushViewController(followerListVC, animated: true)
 	}
 	
 	/// 함수로 따로 만들어서 가독성있고 수정이 편리하게 관리한다.
 	func configureLogoImageView() {
+		
 		logoImageView.translatesAutoresizingMaskIntoConstraints = false
 		logoImageView.image = Images.ghLogo //Stringly type
-		
 		// 디바이스 대응 코드 적용
 		let topConstraintConstant: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? 20 : 80
-		
-		logoImageViewTopConstraint = logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topConstraintConstant)
-		logoImageViewTopConstraint.isActive = true
-		
 		// autolayout 제약조건을 한번에 작성 할 수 있다.
 		NSLayoutConstraint.activate([
+			logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topConstraintConstant),
 			logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			logoImageView.heightAnchor.constraint(equalToConstant: 200),
 			logoImageView.widthAnchor.constraint(equalToConstant: 200),
@@ -76,6 +73,7 @@ class SearchViewController: GFDataLoadingVC {
 	}
 	
 	func configureTextField() {
+		
 		usernameTextField.delegate = self
 		
 		NSLayoutConstraint.activate([

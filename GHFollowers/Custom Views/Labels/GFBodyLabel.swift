@@ -21,14 +21,12 @@ class GFBodyLabel: UILabel {
 	convenience init(textAlignment: NSTextAlignment) {
 		self.init(frame: .zero)
 		self.textAlignment = textAlignment
-		configure()
 	}
 	
 	private func configure() {
 		textColor = .secondaryLabel
 		font = UIFont.preferredFont(forTextStyle: .body)
-		/// 글자크기 설정에 맞춰서 자동으로 변경 가능하게 만듬
-		adjustsFontForContentSizeCategory = true
+		adjustsFontForContentSizeCategory = true // 글자크기 설정에 맞춰서 자동으로 변경 가능하게 만듬
 		adjustsFontSizeToFitWidth = true
 		minimumScaleFactor = 0.75
 		lineBreakMode = .byWordWrapping

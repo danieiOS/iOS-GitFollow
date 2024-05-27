@@ -20,11 +20,10 @@ class GFSecondaryTitleLabel: UILabel {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	//3. size를 flexible하게 설정하기 위한 초기화 코드
+	//3. size를 customize하게 설정하기 위한 초기화 코드
 	convenience init(fontSize: CGFloat) {
 		self.init(frame: .zero)
 		font = UIFont.systemFont(ofSize: fontSize, weight: .medium)
-		configure()
 	}
 	
 	private func configure() {
@@ -32,7 +31,7 @@ class GFSecondaryTitleLabel: UILabel {
 		///adjustsFontSizeToFitWidth는 UILabel 클래스의 속성으로, 레이블에 표시되는 텍스트의 크기를 자동으로 조절하여 해당 텍스트가 레이블의 너비에 맞도록 하는 데 사용됩니다.
 		///이 속성을 사용하면 긴 텍스트를 표시할 때 텍스트의 크기를 자동으로 조절하여 텍스트가 레이블의 너비에 맞게 됩니다.
 		adjustsFontSizeToFitWidth = true
-		minimumScaleFactor = 0.75
+		minimumScaleFactor = 0.90
 		lineBreakMode = .byTruncatingTail
 		translatesAutoresizingMaskIntoConstraints = false
 	}

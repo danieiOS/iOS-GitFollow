@@ -6,35 +6,33 @@ enum PersistenceActionType {
 }
 
 enum PersistenceManager {
-	static private let defaults = UserDefaults.standard
 	
+	static private let defaults = UserDefaults.standard
 	//key 값을 enum으로 관리
-	enum Keys {
-		static let favorites = "favorites"
-	}
+	enum Keys { static let favorites = "favorites" }
 	
 	//action타입을 enum으로 관리해서 코드 재사용성을 올려줌
 	static func update(favorite: Follower, actionType: PersistenceActionType, completed: @escaping (GFError?) -> Void) {
 		retrieveFavorites { result in
+			
 			switch result {
-			case .success(let favorites):
-				var retrievedFavorites = favorites
+			case .success(var favorites):
 				
 				switch actionType {
 				case .add:
-					guard !retrievedFavorites.contains(favorite) else {
+					guard !favorites.contains(favorite) else {
 						completed(.alreadyInFavorites)
 						return
 					}
 					
-					retrievedFavorites.append(favorite)
+					favorites.append(favorite)
 					
 				case .remove:
 					///조건이 되었을 떄 지움
-					retrievedFavorites.removeAll { $0.login == favorite.login }
+					favorites.removeAll { $0.login == favorite.login }
 				}
 				
-				completed(save(favorites: retrievedFavorites))
+				completed(save(favorites: favorites))
 				
 			case .failure(let error):
 				completed(error)

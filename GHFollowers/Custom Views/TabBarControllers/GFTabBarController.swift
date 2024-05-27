@@ -9,13 +9,13 @@ import UIKit
 
 //#Refactoring => TabBarController 분리시키기
 class GFTabBarController: UITabBarController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-			///appearance 탭바 부분 디자인을 변경시키기 위한 메서드
-			UITabBar.appearance().tintColor = .systemGreen
-			viewControllers = [createSearchNC(), createFavoritesNC()]
-    }
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		///appearance 탭바 부분 디자인을 변경시키기 위한 메서드
+		UITabBar.appearance().tintColor = .systemGreen
+		viewControllers = [createSearchNC(), createFavoritesNC()]
+	}
 	
 	// 탭에 NavigationController 연결
 	func createSearchNC() -> UINavigationController {

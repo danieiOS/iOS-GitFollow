@@ -27,6 +27,7 @@ class GFItemInfoView: UIView {
 	}
 	
 	private func configure() {
+		
 		addSubviews(symbolImageView, titleLabel, countLabel)
 		
 		symbolImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,6 +53,7 @@ class GFItemInfoView: UIView {
 	}
 	
 	func set(itemInfoType: ItemInfoType, withCount count: Int) {
+		
 		switch itemInfoType {
 		case .repos:
 			symbolImageView.image = SFSymbols.repos

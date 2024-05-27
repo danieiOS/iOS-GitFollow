@@ -23,15 +23,14 @@ class FollowerCell: UICollectionViewCell {
 	}
 	
 	func set(follower: Follower) {
-		usernameLabel.text = follower.login
 		//이미지를 불러올 때 싱글톤으로 NetworkManager를 통해 받아올 수 있도록 구현
-		NetworkManager.shared.downloadImage(from: follower.avatarUrl) { [weak self] image in
-			guard let self = self else { return }
-			DispatchQueue.main.async { self.avatarImageView.image = image }
-		}
+		avatarImageView.downloadImage(fromURL: follower.avatarUrl)
+		usernameLabel.text = follower.login
+		
 	}
 	
 	private func configure() {
+		
 		addSubviews(avatarImageView, usernameLabel)
 		
 		let padding: CGFloat = 8
